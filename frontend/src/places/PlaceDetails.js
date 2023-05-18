@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router"
 import CommentCard from './CommentCard'
 import NewCommentForm from "./NewCommentForm";
+import { CurrentUser } from "../contexts/CurrentUser";
 
 function PlaceDetails() {
+
+	const { currentUser } = useContext(CurrentUser)
 
 	const { placeId } = useParams()
 

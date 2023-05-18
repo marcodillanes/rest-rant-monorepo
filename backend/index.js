@@ -4,8 +4,14 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const app = express();
-
+const defineCurrentUser = require('./middleware/defineCurrentUser');
+const cookieSession = require('cookie-session');
 // Express Settings
+app.use(cookieSession({
+    name: 'session',
+    keys: [ process.env.SESSION_SECRET ],
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}))
 app.use(cors())
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
@@ -22,3 +28,4 @@ app.use('/users', require('./controllers/users'))
 app.listen(process.env.PORT, () => {
     console.log(`Listening on ${process.env.PORT}`)
 })
+
